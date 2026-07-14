@@ -1,145 +1,141 @@
-import java.util.Scanner;
-
-public class NumberPrograms {
-
-    // 1. Reverse a Number
-    public static int reverseNumber(int num) {
-        int rev = 0;
+1. Reverse a Number
+Java
+public class ReverseNumber {
+    public static void main(String[] args) {
+        int num = 1234, rev = 0;
         while (num > 0) {
             rev = rev * 10 + (num % 10);
             num /= 10;
         }
-        return rev;
+        System.out.println("Reversed Number: " + rev);
     }
+}
 
-    // 2. Palindrome Number
-    public static boolean isPalindrome(int num) {
-        return num == reverseNumber(num);
+2. Palindrome Number
+Java
+public class PalindromeNumber {
+    public static void main(String[] args) {
+        int num = 121, original = num, rev = 0;
+        while (num > 0) {
+            rev = rev * 10 + (num % 10);
+            num /= 10;
+        }
+        if (original == rev) {
+            System.out.println(original + " is a Palindrome.");
+        } else {
+            System.out.println(original + " is not a Palindrome.");
+        }
     }
+}
 
-    // 3. Count Digits
-    public static int countDigits(int num) {
-        if (num == 0) return 1;
-        int count = 0;
+3. Count Digits
+Java
+public class CountDigits {
+    public static void main(String[] args) {
+        int num = 98765, count = 0;
         while (num > 0) {
             count++;
             num /= 10;
         }
-        return count;
+        System.out.println("Total Digits: " + count);
     }
-
-    // 4. Sum of Digits
-    public static int sumOfDigits(int num) {
-        int sum = 0;
+}
+4. Sum of Digits
+Java
+public class SumOfDigits {
+    public static void main(String[] args) {
+        int num = 543, sum = 0;
         while (num > 0) {
             sum += num % 10;
             num /= 10;
         }
-        return sum;
+        System.out.println("Sum of Digits: " + sum);
     }
+}
 
-    // 5. Armstrong Number
-    public static boolean isArmstrong(int num) {
-        int original = num;
-        int digits = countDigits(num);
-        int sum = 0;
-        while (num > 0) {
-            int lastDigit = num % 10;
+5. Armstrong Number
+Java
+public class ArmstrongNumber {
+    public static void main(String[] args) {
+        int num = 153, original = num, temp = num;
+        int digits = 0, sum = 0;
+        
+        while (temp > 0) { digits++; temp /= 10; } // Count digits
+        
+        temp = num;
+        while (temp > 0) {
+            int lastDigit = temp % 10;
             sum += Math.pow(lastDigit, digits);
-            num /= 10;
+            temp /= 10;
         }
-        return sum == original;
+        System.out.println(original + (sum == original ? " is an Armstrong number." : " is not an Armstrong number."));
     }
-
-    // 6. Prime Number
-    public static boolean isPrime(int num) {
-        if (num <= 1) return false;
+}
+6. Prime Number
+Java
+public class PrimeNumber {
+    public static void main(String[] args) {
+        int num = 29;
+        boolean isPrime = num > 1;
         for (int i = 2; i <= Math.sqrt(num); i++) {
-            if (num % i == 0) return false;
+            if (num % i == 0) {
+                isPrime = false;
+                break;
+            }
         }
-        return true;
+        System.out.println(num + (isPrime ? " is a Prime number." : " is not a Prime number."));
     }
-
-    // Helper for Factorial
-    public static int factorial(int n) {
-        int fact = 1;
-        for (int i = 1; i <= n; i++) {
-            fact *= i;
-        }
-        return fact;
-    }
-
-    // 7. Fibonacci Series (Prints first n terms)
-    public static void printFibonacci(int terms) {
-        int a = 0, b = 1;
+}
+7. Fibonacci Series
+Java
+public class Fibonacci {
+    public static void main(String[] args) {
+        int terms = 8, a = 0, b = 1;
+        System.out.print("Fibonacci Series: ");
         for (int i = 0; i < terms; i++) {
             System.out.print(a + " ");
             int next = a + b;
             a = b;
             b = next;
         }
-        System.out.println();
     }
-
-    // 9. GCD & LCM
-    public static int getGCD(int a, int b) {
+}
+8. Factorial
+Java
+public class Factorial {
+    public static void main(String[] args) {
+        int num = 5, fact = 1;
+        for (int i = 1; i <= num; i++) {
+            fact *= i;
+        }
+        System.out.println("Factorial of " + num + " is: " + fact);
+    }
+}
+9. GCD & LCM
+Java
+public class GcdLcm {
+    public static void main(String[] args) {
+        int n1 = 12, n2 = 18;
+        int a = n1, b = n2;
         while (b != 0) {
             int temp = b;
             b = a % b;
             a = temp;
         }
-        return a;
+        int gcd = a;
+        int lcm = (n1 * n2) / gcd;
+        System.out.println("GCD: " + gcd + ", LCM: " + lcm);
     }
-
-    public static int getLCM(int a, int b) {
-        return (a * b) / getGCD(a, b);
-    }
-
-    // 10. Perfect Number
-    public static boolean isPerfect(int num) {
-        int sum = 0;
+}
+10. Special Numbers
+Perfect Number
+Java
+public class PerfectNumber {
+    public static void main(String[] args) {
+        int num = 6, sum = 0;
         for (int i = 1; i <= num / 2; i++) {
             if (num % i == 0) sum += i;
         }
-        return sum == num;
-    }
-
-    // 10. Strong Number / Peterson Number
-    public static boolean isStrongOrPeterson(int num) {
-        int original = num;
-        int sum = 0;
-        while (num > 0) {
-            sum += factorial(num % 10);
-            num /= 10;
-        }
-        return sum == original;
-    }
-
-    // 10. Neon Number
-    public static boolean isNeon(int num) {
-        int square = num * num;
-        return sumOfDigits(square) == num;
-    }
-
-    // 10. Spy Number
-    public static boolean isSpy(int num) {
-        int sum = 0, product = 1;
-        while (num > 0) {
-            int digit = num % 10;
-            sum += digit;
-            product *= digit;
-            num /= 10;
-        }
-        return sum == product;
-    }
-
-    // 10. Duck Number
-    public static boolean isDuck(String numStr) {
-        // Must not start with '0' but must contain '0'
-        if (numStr.charAt(0) == '0') return false;
-        return numStr.contains("0");
-    }
-
-    
+        System.out.println(num + (sum == num ? " is a Perfect Number." : " is not a Perfect Number."));
     }
 }
